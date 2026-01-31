@@ -8,8 +8,8 @@ uses(RefreshDatabase::class);
 
 test('show courses overview', function () {
     // arrange
-    $courseA = Course::factory()->create(['title'=>'Course A','description'=>'Course A description','released_at'=>now()]);
-    $courseB = Course::factory()->create(['title'=>'Course B','description'=>'Course B description','released_at'=>now()]);
+    $courseA = Course::factory()->releasedAt()->create();
+    $courseB = Course::factory()->releasedAt()->create();
 
     // act & assert
     get(route('home'))->assertSeeText([
@@ -22,19 +22,19 @@ test('show courses overview', function () {
 
 test('show only published courses',function(){
     //arrange
-    $courseA = Course::factory()->create(['title'=>'Course A','description'=>'Course A description','released_at'=>\Illuminate\Support\Carbon::yesterday()]);
-    $courseB = Course::factory()->create(['title'=>'Course B','description'=>'Course B description']);
+    $courseA = Course::factory()->releasedAt()->create();
+    $courseB = Course::factory()->create();
 
     //act & assert
-    get(route('home'))->assertSeeTextInOrder([
+    get(route('home'))->assertSeeText([
         $courseA->title
     ])->assertDontSeeText([$courseB->title]);
 });
 
 test('order courses by date',function(){
     // arrange
-    $courseA = Course::factory()->create(['title'=>'Course A','description'=>'Course A description','released_at'=>\Illuminate\Support\Carbon::yesterday()]);
-    $courseB = Course::factory()->create(['title'=>'Course B','description'=>'Course B description','released_at'=>\Illuminate\Support\Carbon::today()]);
+    $courseA = Course::factory()->releasedAt(\Carbon\Carbon::yesterday())->create();
+    $courseB = Course::factory()->releasedAt()->create();
 
     // act & assert
     get(route('home'))->assertSeeTextInOrder([
