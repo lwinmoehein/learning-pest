@@ -4,11 +4,8 @@ use App\Models\Course;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
-
-uses(RefreshDatabase::class);
 
 test('shows purchased courses', function () {
     // arrange
@@ -24,9 +21,9 @@ test('shows purchased courses', function () {
     ))->create();
 
     // act & assert
-    $this->actingAs($user);
+    loginAsUser($user);
 
-    get(route('dashboard'))->assertOk()->assertSee([
+    get(route('pages.dashboard'))->assertOk()->assertSee([
         'Test title 1',
         'Test title 2',
     ]);
@@ -36,12 +33,13 @@ test('has courses', function () {
     // arrange
     $user = User::factory()->has(Course::factory()->count(2))->create();
 
+    // act && assert
     expect($user->courses)->toHaveCount(2)->each->toBeInstanceOf(Course::class);
 });
 
 test('shows login page for unauthenticated user', function () {
     // act && assert
-    get(route('dashboard'))->assertRedirect(route('login'));
+    get(route('pages.dashboard'))->assertRedirect(route('login'));
 });
 
 test('shows courses in latest order', function () {
@@ -56,9 +54,9 @@ test('shows courses in latest order', function () {
     $user->courses()->attach($latestCourse, ['created_at' => Carbon::now()]);
 
     // act && assert
-    $this->actingAs($user);
+    loginAsUser($user);
 
-    get(route('dashboard'))
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertSeeTextInOrder([
             $latestCourse->title,
@@ -73,8 +71,8 @@ test('dont show non purchased courses', function () {
     Course::factory()->count(3)->create();
 
     // act & assert
-    $this->actingAs($user);
-    get(route('dashboard'))->assertOk()->assertSeeText('No course found.');
+    loginAsUser($user);
+    get(route('pages.dashboard'))->assertOk()->assertSeeText('No course found.');
 });
 
 test('show view videos', function () {
@@ -82,8 +80,8 @@ test('show view videos', function () {
     $user = User::factory()->has(Course::factory()->count(2))->create();
 
     // act && assert
-    $this->actingAs($user);
-    get(route('dashboard'))
+    loginAsUser($user);
+    get(route('pages.dashboard'))
         ->assertOk()
         ->assertSee('View Videos');
 });

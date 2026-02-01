@@ -1,11 +1,8 @@
 <?php
 
 use App\Models\Course;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
-
-uses(RefreshDatabase::class);
 
 test('shows all course detail fields', function () {
     // arrange

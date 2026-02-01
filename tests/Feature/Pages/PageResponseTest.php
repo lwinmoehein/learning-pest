@@ -4,11 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Course;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
-
-uses(RefreshDatabase::class);
 
 test('gives back successful response for courses page', function () {
     // act & assert
@@ -30,5 +27,5 @@ test('shows purchased courses', function () {
     // act & assert
     $this->actingAs($user);
 
-    get(route('dashboard'))->assertOk();
+    get(route('pages.dashboard'))->assertOk();
 });

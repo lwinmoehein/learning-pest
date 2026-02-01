@@ -14,6 +14,6 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', CourseDashboardController::class)->name('dashboard');
+    Route::get('/dashboard', CourseDashboardController::class)->name('pages.dashboard');
     Route::get('/courses/{course:slug}/videos', CourseVideosController::class)->name('pages.view-videos');
 });
