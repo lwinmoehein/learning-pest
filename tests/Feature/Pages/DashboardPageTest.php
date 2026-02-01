@@ -85,3 +85,12 @@ test('show view videos', function () {
         ->assertOk()
         ->assertSee('View Videos');
 });
+
+test('shows logout if logged in', function () {
+    // act & assert
+    loginAsUser();
+    get(route('pages.dashboard'))
+        ->assertOk()
+        ->assertSeeText('Log Out')
+        ->assertSee(route('logout'));
+});

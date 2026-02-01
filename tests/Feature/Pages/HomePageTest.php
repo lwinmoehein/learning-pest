@@ -47,3 +47,20 @@ test('course has videos', function () {
 
     expect($courseA->videos)->toHaveCount(3)->each()->toBeInstanceOf(Video::class);
 });
+
+test('shows logout if logged in', function () {
+    // act & assert
+    loginAsUser();
+    get(route('pages.home'))
+        ->assertOk()
+        ->assertSeeText('Log Out')
+        ->assertSee(route('logout'));
+});
+
+test('shows login if not logged in', function () {
+    // act & assert
+    get(route('pages.home'))
+        ->assertOk()
+        ->assertSeeText('Log in')
+        ->assertSee(route('login'));
+});
