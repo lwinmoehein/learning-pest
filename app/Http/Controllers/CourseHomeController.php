@@ -8,11 +8,10 @@ class CourseHomeController extends Controller
 {
     public function __invoke()
     {
-        $courses = Course
-            ::released()
+        $courses = Course::released()
             ->orderByDesc('released_at')
             ->get();
 
-         return view('home', compact('courses'));
+        return view('home', compact('courses'));
     }
 }

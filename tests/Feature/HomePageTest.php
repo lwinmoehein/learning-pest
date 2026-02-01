@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use function Pest\Laravel\get;
 use App\Models\Course;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+use function Pest\Laravel\get;
 
 uses(RefreshDatabase::class);
 
@@ -16,22 +17,22 @@ test('show courses overview', function () {
         $courseA->title,
         $courseA->description,
         $courseB->title,
-        $courseB->description
+        $courseB->description,
     ]);
 });
 
-test('show only published courses',function(){
-    //arrange
+test('show only published courses', function () {
+    // arrange
     $courseA = Course::factory()->releasedAt()->create();
     $courseB = Course::factory()->create();
 
-    //act & assert
+    // act & assert
     get(route('home'))->assertSeeText([
-        $courseA->title
+        $courseA->title,
     ])->assertDontSeeText([$courseB->title]);
 });
 
-test('order courses by date',function(){
+test('order courses by date', function () {
     // arrange
     $courseA = Course::factory()->releasedAt(\Carbon\Carbon::yesterday())->create();
     $courseB = Course::factory()->releasedAt()->create();
@@ -39,6 +40,6 @@ test('order courses by date',function(){
     // act & assert
     get(route('home'))->assertSeeTextInOrder([
         $courseB->title,
-        $courseA->title
+        $courseA->title,
     ]);
 });

@@ -4,12 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('tag_line');
+            $table->json('learnings');
+            $table->string('image');
+            $table->string('slug');
             $table->text('description');
             $table->timestamp('released_at')->nullable();
             $table->timestamps();

@@ -13,17 +13,19 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'=>fake()->sentence,
-            'description'=>fake()->paragraph,
+            'title' => fake()->sentence,
+            'slug' => fake()->slug,
+            'description' => fake()->paragraph,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
     }
 
-    public function releasedAt(\Carbon\Carbon $timestamp=null):Factory{
-        return $this->state(function(array $attributes) use ($timestamp){
+    public function releasedAt(?\Carbon\Carbon $timestamp = null): Factory
+    {
+        return $this->state(function (array $attributes) use ($timestamp) {
             return [
-              'released_at'=>$timestamp??Carbon::now()
+                'released_at' => $timestamp ?? Carbon::now(),
             ];
         });
     }
