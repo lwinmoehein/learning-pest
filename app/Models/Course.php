@@ -20,7 +20,7 @@ class Course extends Model
         return $query->whereNotNull('released_at');
     }
 
-    public function videos():HasMany
+    public function videos(): HasMany
     {
         return $this->hasmany(Video::class);
     }

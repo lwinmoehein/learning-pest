@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
@@ -20,4 +21,14 @@ test('gives back successful response for course detail page', function () {
 
     // act and assert
     get(route('pages.course-details', $course))->assertOk();
+});
+
+test('shows purchased courses', function () {
+    // arrange
+    $user = User::factory()->has(Course::factory()->count(3))->create();
+
+    // act & assert
+    $this->actingAs($user);
+
+    get(route('dashboard'))->assertOk();
 });

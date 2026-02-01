@@ -45,8 +45,8 @@ test('order courses by date', function () {
     ]);
 });
 
-test('course has videos',function(){
-   $courseA = Course::factory()->has(Video::factory()->count(3))->releasedAt()->create();
+test('course has videos', function () {
+    $courseA = Course::factory()->has(Video::factory()->count(3))->releasedAt()->create();
 
-   expect($courseA->videos)->toHaveCount(3)->each()->toBeInstanceOf(Video::class);
+    expect($courseA->videos)->toHaveCount(3)->each()->toBeInstanceOf(Video::class);
 });

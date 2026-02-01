@@ -16,16 +16,15 @@ test('shows all course detail fields', function () {
         $course->title,
         $course->description,
         $course->tag_line,
-        ...$course->learnings
+        ...$course->learnings,
     ])->assertSee(asset('images/'.$course->image_name));
 });
 
-
-test('shows videos',function(){
+test('shows videos', function () {
     // arrange
     $course = Course::factory()
-            ->releasedAt()
-            ->has(\App\Models\Video::factory()
+        ->releasedAt()
+        ->has(\App\Models\Video::factory()
             ->count(3))->create();
 
     get(route('pages.course-details', $course))
@@ -33,8 +32,8 @@ test('shows videos',function(){
         ->assertSee('3 videos');
 });
 
-test('show only released course',function(){
-   $course = Course::factory()->create();
+test('show only released course', function () {
+    $course = Course::factory()->create();
 
-   get(route('pages.course-details', $course))->assertNotFound();
+    get(route('pages.course-details', $course))->assertNotFound();
 });
