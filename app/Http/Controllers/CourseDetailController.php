@@ -13,6 +13,8 @@ class CourseDetailController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return view('detail', compact('course'));
+        $course->loadCount('videos');
+
+        return view('pages.detail', compact('course'));
     }
 }

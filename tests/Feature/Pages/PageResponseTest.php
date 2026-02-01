@@ -11,7 +11,7 @@ uses(RefreshDatabase::class);
 
 test('gives back successful response for courses page', function () {
     // act & assert
-    get(route('home'))->assertOk();
+    get(route('pages.home'))->assertOk();
 });
 
 test('gives back successful response for course detail page', function () {
@@ -19,5 +19,5 @@ test('gives back successful response for course detail page', function () {
     $course = Course::factory()->releasedAt()->create();
 
     // act and assert
-    get(route('course-details', $course))->assertOk();
+    get(route('pages.course-details', $course))->assertOk();
 });

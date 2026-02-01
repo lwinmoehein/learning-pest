@@ -14,7 +14,7 @@ test('show courses overview', function () {
     $courseB = Course::factory()->releasedAt()->create();
 
     // act & assert
-    get(route('home'))->assertSeeText([
+    get(route('pages.home'))->assertSeeText([
         $courseA->title,
         $courseA->description,
         $courseB->title,
@@ -28,7 +28,7 @@ test('show only published courses', function () {
     $courseB = Course::factory()->create();
 
     // act & assert
-    get(route('home'))->assertSeeText([
+    get(route('pages.home'))->assertSeeText([
         $courseA->title,
     ])->assertDontSeeText([$courseB->title]);
 });
@@ -39,7 +39,7 @@ test('order courses by date', function () {
     $courseB = Course::factory()->releasedAt()->create();
 
     // act & assert
-    get(route('home'))->assertSeeTextInOrder([
+    get(route('pages.home'))->assertSeeTextInOrder([
         $courseB->title,
         $courseA->title,
     ]);
