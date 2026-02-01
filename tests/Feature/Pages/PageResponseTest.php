@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Video;
 
 use function Pest\Laravel\get;
 
@@ -28,4 +29,15 @@ test('shows purchased courses', function () {
     $this->actingAs($user);
 
     get(route('pages.dashboard'))->assertOk();
+});
+
+it('shows videos page', function () {
+    // arrange
+    $course = Course::factory()->has(Video::factory())->create();
+
+    loginAsUser();
+
+    // act && assert
+    get(route('pages.view-videos', $course))
+        ->assertOk();
 });
