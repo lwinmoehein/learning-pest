@@ -24,7 +24,7 @@ class CourseFactory extends Factory
                 'learning B',
                 'learning B+'
             ],
-            'image'=> 'test.png'
+            'image_name'=> 'test.png'
         ];
     }
 

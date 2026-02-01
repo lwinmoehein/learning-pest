@@ -16,7 +16,7 @@ test('gives back successful response for courses page', function () {
 
 test('gives back successful response for course detail page', function () {
     // arrange
-    $course = Course::factory()->create();
+    $course = Course::factory()->releasedAt()->create();
 
     // act and assert
     get(route('course-details', $course))->assertOk();

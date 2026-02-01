@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('tag_line');
             $table->json('learnings');
-            $table->string('image');
+            $table->string('image_name');
             $table->string('slug');
             $table->text('description');
             $table->timestamp('released_at')->nullable();
