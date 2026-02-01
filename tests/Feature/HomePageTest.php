@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use function Pest\Laravel\get;
@@ -42,4 +43,11 @@ test('order courses by date', function () {
         $courseB->title,
         $courseA->title,
     ]);
+});
+
+test('course has videos',function(){
+   $courseA = Course::factory()->releasedAt()->create();
+   Video::factory()->count(3)->create(['course_id' => $courseA->id]);
+
+   expect($courseA->videos)->toHaveCount(3)->each()->toBeInstanceOf(Video::class);
 });

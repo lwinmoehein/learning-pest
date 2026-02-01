@@ -19,5 +19,5 @@ test('gives back successful response for course detail page', function () {
     $course = Course::factory()->create();
 
     // act and assert
-    get(route('details', $course))->assertOk();
+    get(route('course-details', $course))->assertOk();
 });

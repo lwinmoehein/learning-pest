@@ -14,10 +14,17 @@ class CourseFactory extends Factory
     {
         return [
             'title' => fake()->sentence,
+            'tag_line'=>fake()->title,
             'slug' => fake()->slug,
             'description' => fake()->paragraph,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
+            'learnings'=> [
+                'learning A',
+                'learning B',
+                'learning B+'
+            ],
+            'image'=> 'test.png'
         ];
     }
 
