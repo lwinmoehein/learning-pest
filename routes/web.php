@@ -3,6 +3,7 @@
 use App\Http\Controllers\CourseDashboardController;
 use App\Http\Controllers\CourseDetailController;
 use App\Http\Controllers\CourseHomeController;
+use App\Http\Controllers\CourseVideosController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', CourseHomeController::class)->name('pages.home');
@@ -14,4 +15,5 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', CourseDashboardController::class)->name('dashboard');
+    Route::get('/courses/{course:slug}/videos', CourseVideosController::class)->name('pages.view-videos');
 });

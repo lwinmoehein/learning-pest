@@ -8,6 +8,6 @@ class CourseDashboardController extends Controller
     {
         $courses = auth()->user()->courses;
 
-        return view('pages.courses', compact('courses'));
+        return view('dashboard', compact('courses'));
     }
 }
