@@ -15,6 +15,9 @@ class VideoFactory extends Factory
         return [
             'slug' => $this->faker->slug,
             'title' => $this->faker->title,
+            'description' => $this->faker->text,
+            'duration'=>'10 minutes',
+            'vimeo_id'=>$this->faker->uuid,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
