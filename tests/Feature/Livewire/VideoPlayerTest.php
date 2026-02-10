@@ -32,3 +32,18 @@ test('shows given video', function () {
        '<iframe src="https://player.vimeo.com/video/'.$video->vimeo_id
     );
 });
+
+test('shows videos list', function () {
+    // arrange
+    $course = Course::factory()->has(Video::factory()->count(3))->create();
+
+    // act & assert
+    Livewire::test(VideoPlayer::class,[
+       'video'=>$course->videos()->first()
+    ])->assertSeeHtml([
+        route('pages.view-videos',[
+            'video'=>$course->videos()->skip(1)->first(),
+            'course'=>$course
+        ])
+    ]);
+});

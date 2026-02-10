@@ -63,7 +63,7 @@ it('shows route parameter video', function () {
     loginAsUser();
 
     // act && assert
-    get(route('pages.view-videos', ['course' => $course, 'video' => $course->videos->last()]))
+    get(route('pages.view-videos', ['course' => $course, 'video' => $course->videos()->latest()->first()]))
         ->assertOk()
-        ->assertSeeText('Second video');
+        ->assertSee('Second video');
 });
